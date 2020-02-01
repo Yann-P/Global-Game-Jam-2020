@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="digitsensitive" />
+    <title>Boilerplate</title>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta http-equiv="cleartype" content="on" />
+    <meta name="format-detection" content="telephone=no" />
+    <style>
+      @font-face {
+        font-family: "Inkfree";
+        src: url("assets/Inkfree.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "Mechanoarc";
+        src: url("assets/Mechanoarc.otf") format("opentype");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+
+      html,
+      body {
+        background: #000;
+      }
+
+      #content {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="font-family:Inkfree; position:absolute; left:-1000px; visibility:hidden;"
+    >
+      .
+    </div>
+    <div
+      style="font-family:Mechanoarc; position:absolute; left:-1000px; visibility:hidden;"
+    >
+      .
+    </div>
+    <div id="game"></div>
+    <script src="dist/bundle.js"></script>
+  </body>
+</html>
