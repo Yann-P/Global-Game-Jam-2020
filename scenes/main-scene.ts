@@ -21,7 +21,8 @@ export class MainScene extends Phaser.Scene {
     this.timeRemaining = this.initData.timeS;
   }
 
-  private gameOver() {
+  private gameOver(win: boolean) {
+    console.log("win", win);
     this.scene.start("starter");
   }
 
@@ -94,8 +95,7 @@ export class MainScene extends Phaser.Scene {
           el.x = el.props.initialX;
           el.y = el.props.initialY;
         } else {
-          console.log(el.props.winning ? "WIN" : "LOSE");
-          this.gameOver();
+          this.gameOver(el.props.winning);
         }
       }
     });
@@ -115,7 +115,7 @@ export class MainScene extends Phaser.Scene {
         timerText.setText(String(this.timeRemaining));
         if (this.timeRemaining === 0) {
           console.log("TIME OUT");
-          this.gameOver();
+          this.gameOver(false);
         }
       },
       callbackScope: this,

@@ -1,15 +1,3 @@
-/*
-"Ampoule",
-      "Cable",
-      "Camion",
-      "Pomme",
-      "Rayon",
-      "Fond_etagere",
-      "Papier",
-      "Caddie"
-
-*/
-
 export class LoaderScene extends Phaser.Scene {
   constructor() {
     super("loader");
