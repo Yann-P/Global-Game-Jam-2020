@@ -26,8 +26,12 @@ export class MainScene extends Phaser.Scene {
     let step = 0;
     let timer: Phaser.Time.TimerEvent;
     let bgMusic = this.sound.add("MusiqueLevel", {
-      loop: true
+      loop: true,
+      rate: 10 / this.initData.timeS
     });
+    let tv: Phaser.GameObjects.Image;
+    let tvShader: Phaser.GameObjects.Shader;
+    let tvBg: Phaser.GameObjects.Graphics;
 
     let pickOrder = [];
     for (let i = 0; i < this.initData.keys.length; i++) {
@@ -58,10 +62,10 @@ export class MainScene extends Phaser.Scene {
     };
 
     const addTimer = () => {
-      timerText = this.add.text(W / 2, 20, "20", {
+      timerText = this.add.text(159, 390, "20", {
         fontFamily: "Mechanoarc, serif",
         fontSize: "100px",
-        color: "black",
+        color: "white",
         align: "center",
         fixedWidth: 200
       });
@@ -69,11 +73,29 @@ export class MainScene extends Phaser.Scene {
     };
 
     const addModele = () => {
-      modele = this.add.image(W / 2, W / 7, "");
+      modele = this.add.image(tv.x + tv.width / 2, tv.y + tv.height / 2, "");
+    };
+
+    const addTV = () => {
+      tv = this.add.image(430, 120, "TV");
+      tv.setOrigin(0, 0);
+
+      tvBg = this.add.graphics({ fillStyle: { color: 0x000000 } });
+
+      tvBg.fillRect(38 + tv.x, 38 + tv.y, 365, 280);
+
+      // tvShader = this.add.shader("tv", 0, 0, 365, 280);
+      // tvShader.setOrigin(0, 0);
+      // tvShader.x = 38 + tv.x;
+      // tvShader.y = 38 + tv.y;
+
+      // tvShader.setChannel0("Voiture");
+      tv.z += 2;
     };
 
     const setModeleToCurrentKey = () => {
       modele.setTexture(this.initData.keys[pickOrder[step]]);
+      modele.setScale(200 / modele.width);
     };
 
     const nextItem = () => {
@@ -150,6 +172,7 @@ export class MainScene extends Phaser.Scene {
 
     addBg();
     addTimer();
+    addTV();
     addModele();
     setModeleToCurrentKey();
     addObjects([900, 1200]);
@@ -158,8 +181,8 @@ export class MainScene extends Phaser.Scene {
       delay: 1000,
       callback: () => {
         this.timeRemaining--;
-        timerText.setText(String(this.timeRemaining));
-        if (this.timeRemaining === 0) {
+        timerText.setText(String(~~this.timeRemaining));
+        if (this.timeRemaining <= 0) {
           console.log("TIME OUT");
           gameOver(false);
         }
@@ -168,7 +191,7 @@ export class MainScene extends Phaser.Scene {
       loop: true
     });
 
-    timerText.setText(String(this.timeRemaining));
+    timerText.setText(String(~~this.timeRemaining));
   }
 
   private feedback(positive: boolean) {

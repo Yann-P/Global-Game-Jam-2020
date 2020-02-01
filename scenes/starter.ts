@@ -25,6 +25,7 @@ export class StarterScene extends Phaser.Scene {
     State.nGame++;
 
     const fond = this.add.image(0, 0, "Transition");
+
     fond.setOrigin(0, 0);
 
     const nGameString = String(State.nGame).padStart(2, "0");
@@ -52,7 +53,7 @@ export class StarterScene extends Phaser.Scene {
           .slice(0, nObj);
         this.scene.start("play", {
           keys,
-          timeS: 5
+          timeS: 8 - 0.5 * ((State.nGame % 3) / 3)
         } as InitData);
       },
       [],

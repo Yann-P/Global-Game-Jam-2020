@@ -14,12 +14,15 @@ export class LoaderScene extends Phaser.Scene {
       "Papier",
       "Caddie",
       "Voiture",
-      "Transition"
+      "Transition",
+      "TV"
     ])
       this.load.image(key, "assets/" + key + ".png");
 
     for (const key of ["GoodItem", "BadItem", "BrosseADents", "MusiqueLevel"])
       this.load.audio(key, "assets/" + key + ".ogg");
+
+    this.load.glsl("tv", "assets/tv2.glsl");
   }
 
   create() {
