@@ -42,13 +42,16 @@ export class StarterScene extends Phaser.Scene {
     );
     nGameText.setOrigin(0.5, 0);
 
+    const nObj = ((State.nGame - 1) % 3) + 3;
+
     this.time.delayedCall(
       1000,
       () => {
-        const keys = ["Camion", "Ampoule", "Pomme", "Cable"];
+        const keys = ["Camion", "Ampoule", "Pomme", "Cable", "Voiture"]
+          .sort((a, b) => (Math.random() < 0.5 ? 1 : -1))
+          .slice(0, nObj);
         this.scene.start("play", {
-          winningKey: keys[~~(Math.random() * keys.length)],
-          keys: keys.sort((a, b) => (Math.random() < 0.5 ? 1 : -1)),
+          keys,
           timeS: 5
         } as InitData);
       },

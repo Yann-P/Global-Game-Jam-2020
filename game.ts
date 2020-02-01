@@ -8,6 +8,7 @@ import "phaser";
 import { MainScene } from "./scenes/main-scene";
 import { StarterScene } from "./scenes/starter";
 import { LoaderScene } from "./scenes/loader";
+import { TitleScene } from "./scenes/title";
 
 // main game configuration
 const config: Phaser.Types.Core.GameConfig = {
@@ -19,7 +20,12 @@ const config: Phaser.Types.Core.GameConfig = {
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
   parent: "game",
-  scene: [new LoaderScene(), new StarterScene(), new MainScene()],
+  scene: [
+    new LoaderScene(),
+    new StarterScene(),
+    new MainScene(),
+    new TitleScene()
+  ],
 
   backgroundColor: "#fff"
 };
