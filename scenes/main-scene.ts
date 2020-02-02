@@ -1,4 +1,5 @@
 import { Objet } from "../objects/objet";
+import { MRT } from "../objects/mrt";
 
 export interface InitData {
   keys: string[];
@@ -30,6 +31,7 @@ export class MainScene extends Phaser.Scene {
     });
     let tv: Phaser.GameObjects.Image;
     let tvBg: Phaser.GameObjects.Graphics;
+    let mrt: MRT;
 
     let pickOrder = [];
     for (let i = 0; i < this.initData.keys.length; i++) {
@@ -110,7 +112,8 @@ export class MainScene extends Phaser.Scene {
 
         o.on("dragstart", (pointer, el: Objet, x, y) => {
           if (levelIsOver) return;
-          this.sound.play(o.texture.key, { volume: 0.7 });
+          this.sound.play(o.texture.key, { volume: 0.5 });
+          mrt.eat(true);
         });
 
         o.on("drag", (pointer, el: Objet, x, y) => {
@@ -126,6 +129,8 @@ export class MainScene extends Phaser.Scene {
 
         o.on("drop", (pointer: Phaser.Input.Pointer) => {
           if (levelIsOver) return;
+
+          mrt.eat(false);
 
           const win = key === this.initData.keys[pickOrder[step]];
           if (pointer.y < H * (2 / 3)) {
@@ -161,6 +166,9 @@ export class MainScene extends Phaser.Scene {
     addTV();
     addModele();
     setModeleToCurrentKey();
+    mrt = new MRT({ scene: this, x: W / 2, y: H * (4 / 5) });
+    this.add.existing(mrt);
+
     addObjects([900, 1200]);
 
     timer = this.time.addEvent({

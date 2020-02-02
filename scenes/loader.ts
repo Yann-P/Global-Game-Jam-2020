@@ -14,7 +14,13 @@ export class LoaderScene extends Phaser.Scene {
       "Compteur",
       "TV",
       "PV",
-      "Mute"
+      "Mute",
+      "MRT",
+      "MRT_cry_overlay",
+      "MRT_door_overlay",
+      "MRT_eat_overlay",
+      "Tear",
+      "Arm"
     ])
       this.load.image(key, "assets/" + key + ".png");
 
@@ -30,6 +36,7 @@ export class LoaderScene extends Phaser.Scene {
       "Cable",
       "MusiqueLevel",
       "MusiqueTransition",
+      "MusiqueMenu",
       "Bouton",
       "TV"
     ])

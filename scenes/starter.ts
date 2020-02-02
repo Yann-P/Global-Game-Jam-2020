@@ -1,5 +1,6 @@
 import { InitData } from "./main-scene";
 import { State } from "../state";
+import { MRT } from "../objects/mrt";
 
 export class StarterScene extends Phaser.Scene {
   private lastLevelResult: boolean | null;
@@ -22,6 +23,7 @@ export class StarterScene extends Phaser.Scene {
     let tvShader: Phaser.GameObjects.Shader;
 
     const [W, H] = [this.scale.width, this.scale.height];
+    const mrt = new MRT({ scene: this, x: W / 2, y: H * (4 / 5) });
 
     const addTV = () => {
       tvShader = this.add.shader("tv", 0, 0, 365, 280);
@@ -92,7 +94,7 @@ export class StarterScene extends Phaser.Scene {
     };
 
     let bgMusic = this.sound.add("MusiqueTransition");
-    bgMusic.play();
+    bgMusic.play({ volume: 0.6 });
 
     let tvMusic = this.sound.add("TV", { volume: 0.5 });
     tvMusic.play();
@@ -124,10 +126,17 @@ export class StarterScene extends Phaser.Scene {
       this
     );
 
+    if (this.lastLevelResult === true) {
+      mrt.flex(true);
+    } else if (this.lastLevelResult === false) {
+      mrt.cry(true);
+    }
+
     addFond();
     addTV();
     addCompteur();
     addNGameText();
     addPV();
+    this.add.existing(mrt);
   }
 }

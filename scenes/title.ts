@@ -13,6 +13,9 @@ export class TitleScene extends Phaser.Scene {
   create() {
     const [W, H] = [this.scale.width, this.scale.height];
 
+    const bgMusic = this.sound.add("MusiqueMenu");
+    bgMusic.play();
+
     const fond = this.add.image(0, 0, "Titre");
     fond.setOrigin(0, 0);
 
@@ -31,8 +34,9 @@ export class TitleScene extends Phaser.Scene {
       bouton.on("pointerup", cb);
     };
 
-    addBouton(H / 4, "Bouton_Jouer", () =>
-      this.scene.start("starter", { lastLevelResult: null })
-    );
+    addBouton(H / 4, "Bouton_Jouer", () => {
+      bgMusic.destroy();
+      this.scene.start("starter", { lastLevelResult: null });
+    });
   }
 }
