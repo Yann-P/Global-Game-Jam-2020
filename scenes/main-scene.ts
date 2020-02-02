@@ -46,27 +46,29 @@ export class MainScene extends Phaser.Scene {
 
     const gameOver = () => {
       const win = step === this.initData.keys.length;
-      this.scene.start("starter", { lastLevelResult: win });
+      if (!win) {
+        this.feedback(false);
+      }
+      setTimeout(() => {
+        this.scene.start("starter", { lastLevelResult: win });
+      }, 200);
       bgMusic.destroy();
     };
 
     const addBg = () => {
       const fond = this.add.image(0, 0, "Fond_etagere");
       fond.setOrigin(0, 0);
-
-      const caddie = this.add.image(W / 2, H, "Caddie");
-      caddie.setOrigin(0.5, 1);
     };
 
     const addTimer = () => {
-      timerText = this.add.text(159, 390, "20", {
+      timerText = this.add.text(159, 450, "20", {
         fontFamily: "Mechanoarc, serif",
         fontSize: "100px",
         color: "white",
         align: "center",
         fixedWidth: 200
       });
-      timerText.setOrigin(0.5, 0);
+      timerText.setOrigin(0.5, 0.5);
     };
 
     const addModele = () => {
@@ -90,6 +92,7 @@ export class MainScene extends Phaser.Scene {
       step++;
       if (step === this.initData.keys.length) {
         levelIsOver = true;
+        mrt.flex(true);
         modele.destroy();
         return;
       }
@@ -112,7 +115,10 @@ export class MainScene extends Phaser.Scene {
 
         o.on("dragstart", (pointer, el: Objet, x, y) => {
           if (levelIsOver) return;
-          this.sound.play(o.texture.key, { volume: 0.5 });
+
+          const key = o.texture.key;
+          const volume = key === "Pomme" ? 0.7 : 0.4;
+          this.sound.play(key, { volume });
           mrt.eat(true);
         });
 
@@ -176,6 +182,20 @@ export class MainScene extends Phaser.Scene {
       callback: () => {
         this.timeRemaining--;
         timerText.setText(String(~~this.timeRemaining));
+        timerText.setScale(3);
+
+        this.add.tween({
+          targets: [timerText],
+          props: {
+            scale: 1
+          },
+          duration: 200
+        });
+
+        if (this.timeRemaining <= 3) {
+          timerText.setColor("red");
+        }
+
         if (this.timeRemaining <= 0) {
           console.log("TIME OUT");
           gameOver();

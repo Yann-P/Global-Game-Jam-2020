@@ -94,7 +94,7 @@ export class StarterScene extends Phaser.Scene {
     };
 
     let bgMusic = this.sound.add("MusiqueTransition");
-    bgMusic.play({ volume: 0.6 });
+    bgMusic.play({ volume: 0.3 });
 
     let tvMusic = this.sound.add("TV", { volume: 0.5 });
     tvMusic.play();
