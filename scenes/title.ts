@@ -14,7 +14,7 @@ export class TitleScene extends Phaser.Scene {
     const [W, H] = [this.scale.width, this.scale.height];
 
     const bgMusic = this.sound.add("MusiqueMenu");
-    bgMusic.play();
+    bgMusic.play({ loop: true });
 
     const fond = this.add.image(0, 0, "Titre");
     fond.setOrigin(0, 0);

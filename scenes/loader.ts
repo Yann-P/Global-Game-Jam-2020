@@ -9,7 +9,6 @@ export class LoaderScene extends Phaser.Scene {
       "Cable",
       "Camion",
       "Pomme",
-      "Rayon",
       "Voiture",
       "Compteur",
       "Colle",
@@ -20,13 +19,13 @@ export class LoaderScene extends Phaser.Scene {
       "Marteau",
       "TV",
       "PV",
-      "Mute",
       "MRT",
       "MRT_cry_overlay",
       "MRT_door_overlay",
       "MRT_eat_overlay",
       "MRT_happy_overlay",
-
+      "MRT_mad_overlay",
+      "pointer",
       "Tear",
       "Arm"
     ])

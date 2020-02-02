@@ -14,7 +14,7 @@ import { TitleScene } from "./scenes/title";
 const config: Phaser.Types.Core.GameConfig = {
   width: 1080,
   height: 1920,
-  type: Phaser.AUTO,
+  type: Phaser.WEBGL,
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH

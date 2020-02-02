@@ -32,6 +32,7 @@ export class MainScene extends Phaser.Scene {
     let tv: Phaser.GameObjects.Image;
     let tvBg: Phaser.GameObjects.Graphics;
     let mrt: MRT;
+    let tutoPtr: Phaser.GameObjects.Image;
 
     let pickOrder = [];
     for (let i = 0; i < this.initData.keys.length; i++) {
@@ -121,6 +122,7 @@ export class MainScene extends Phaser.Scene {
           this.sound.play(key, { volume });
           mrt.eat(true);
           mrt.happy(false);
+          mrt.mad(false);
         });
 
         o.on("drag", (pointer, el: Objet, x, y) => {
@@ -150,6 +152,9 @@ export class MainScene extends Phaser.Scene {
               o.destroy();
               nextItem();
             } else {
+              this.feedback(false);
+              mrt.mad(true);
+
               this.sound.play("BadItem");
               o.x = o.props.initialX;
               o.y = o.props.initialY;
