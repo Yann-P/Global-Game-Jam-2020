@@ -10,19 +10,32 @@ export class LoaderScene extends Phaser.Scene {
       "Camion",
       "Pomme",
       "Rayon",
-      "Fond_etagere",
-      "Papier",
-      "Caddie",
       "Voiture",
-      "Transition",
-      "TV"
+      "Compteur",
+      "TV",
+      "PV",
+      "Mute"
     ])
       this.load.image(key, "assets/" + key + ".png");
 
-    for (const key of ["GoodItem", "BadItem", "BrosseADents", "MusiqueLevel"])
+    this.load.image("Fond_etagere", "assets/Fond_etagere.jpg");
+
+    for (const key of [
+      "GoodItem",
+      "BadItem",
+      "Pomme",
+      "Camion",
+      "Voiture",
+      "Ampoule",
+      "Cable",
+      "MusiqueLevel",
+      "MusiqueTransition",
+      "Bouton",
+      "TV"
+    ])
       this.load.audio(key, "assets/" + key + ".ogg");
 
-    this.load.glsl("tv", "assets/tv2.glsl");
+    this.load.glsl("tv", "assets/tv.glsl");
   }
 
   create() {

@@ -4,13 +4,10 @@ export class TitleScene extends Phaser.Scene {
   }
 
   preload() {
-    for (const key of [
-      "Titre",
-      "Bouton_Jouer",
-      "Bouton_Option",
-      "Bouton_Quitter"
-    ])
+    for (const key of ["Bouton_Jouer", "Bouton_Option", "Bouton_Quitter"])
       this.load.image(key, "assets/" + key + ".png");
+
+    this.load.image("Titre", "assets/Titre.jpg");
   }
 
   create() {
@@ -34,6 +31,8 @@ export class TitleScene extends Phaser.Scene {
       bouton.on("pointerup", cb);
     };
 
-    addBouton(H / 4, "Bouton_Jouer", () => this.scene.start("starter"));
+    addBouton(H / 4, "Bouton_Jouer", () =>
+      this.scene.start("starter", { lastLevelResult: null })
+    );
   }
 }

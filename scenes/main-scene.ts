@@ -26,11 +26,9 @@ export class MainScene extends Phaser.Scene {
     let step = 0;
     let timer: Phaser.Time.TimerEvent;
     let bgMusic = this.sound.add("MusiqueLevel", {
-      loop: true,
       rate: 10 / this.initData.timeS
     });
     let tv: Phaser.GameObjects.Image;
-    let tvShader: Phaser.GameObjects.Shader;
     let tvBg: Phaser.GameObjects.Graphics;
 
     let pickOrder = [];
@@ -38,18 +36,15 @@ export class MainScene extends Phaser.Scene {
       pickOrder.push(i);
     }
     pickOrder = pickOrder.sort((a, b) => (Math.random() < 0.5 ? 1 : -1));
-
-    console.log(pickOrder);
-
     bgMusic.play();
 
     console.log("Scene::play");
 
     const [W, H] = [this.scale.width, this.scale.height];
 
-    const gameOver = (win: boolean) => {
-      console.log("win", win);
-      this.scene.start("starter");
+    const gameOver = () => {
+      const win = step === this.initData.keys.length;
+      this.scene.start("starter", { lastLevelResult: win });
       bgMusic.destroy();
     };
 
@@ -79,17 +74,8 @@ export class MainScene extends Phaser.Scene {
     const addTV = () => {
       tv = this.add.image(430, 120, "TV");
       tv.setOrigin(0, 0);
-
       tvBg = this.add.graphics({ fillStyle: { color: 0x000000 } });
-
       tvBg.fillRect(38 + tv.x, 38 + tv.y, 365, 280);
-
-      // tvShader = this.add.shader("tv", 0, 0, 365, 280);
-      // tvShader.setOrigin(0, 0);
-      // tvShader.x = 38 + tv.x;
-      // tvShader.y = 38 + tv.y;
-
-      // tvShader.setChannel0("Voiture");
       tv.z += 2;
     };
 
@@ -124,7 +110,7 @@ export class MainScene extends Phaser.Scene {
 
         o.on("dragstart", (pointer, el: Objet, x, y) => {
           if (levelIsOver) return;
-          this.sound.play("BrosseADents");
+          this.sound.play(o.texture.key, { volume: 0.7 });
         });
 
         o.on("drag", (pointer, el: Objet, x, y) => {
@@ -184,7 +170,7 @@ export class MainScene extends Phaser.Scene {
         timerText.setText(String(~~this.timeRemaining));
         if (this.timeRemaining <= 0) {
           console.log("TIME OUT");
-          gameOver(false);
+          gameOver();
         }
       },
       callbackScope: this,
