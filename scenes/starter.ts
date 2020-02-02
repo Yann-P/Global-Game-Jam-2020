@@ -103,12 +103,24 @@ export class StarterScene extends Phaser.Scene {
 
     console.log(State.nGame);
 
-    const nObj = ((State.nGame - 1) % 3) + 3;
+    const nObj = State.nGame === 1 ? 3 : State.nGame === 2 ? 4 : 5;
 
     this.time.delayedCall(
       2000,
       () => {
-        const keys = ["Camion", "Ampoule", "Pomme", "Cable", "Voiture"]
+        const keys = [
+          "Camion",
+          "Ampoule",
+          "Pomme",
+          "Cable",
+          "Voiture",
+          "Colle",
+          "Papier",
+          "Tuyau",
+          "Tournevis",
+          "Canette",
+          "Marteau"
+        ]
           .sort((a, b) => (Math.random() < 0.5 ? 1 : -1))
           .slice(0, nObj);
         bgMusic.destroy();
@@ -118,7 +130,7 @@ export class StarterScene extends Phaser.Scene {
         } else {
           this.scene.start("play", {
             keys,
-            timeS: 8 - 0.5 * (State.nGame / 3)
+            timeS: 8 - 0.5 * (State.nGame / 2)
           } as InitData);
         }
       },

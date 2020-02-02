@@ -11,6 +11,7 @@ interface MRTProps {
   cryOverlay?: Phaser.GameObjects.Image;
   eatOverlay?: Phaser.GameObjects.Image;
   doorOverlay?: Phaser.GameObjects.Image;
+  happyOverlay?: Phaser.GameObjects.Image;
   startTears?: any;
   stopTears?: any;
   startFlex?: any;
@@ -41,6 +42,12 @@ export class MRT extends Phaser.GameObjects.Container {
       0,
       0,
       "MRT_door_overlay"
+    );
+    this.props.happyOverlay = new Phaser.GameObjects.Image(
+      scene,
+      0,
+      0,
+      "MRT_happy_overlay"
     );
     this.props.cryOverlay = new Phaser.GameObjects.Image(
       scene,
@@ -147,10 +154,12 @@ export class MRT extends Phaser.GameObjects.Container {
     this.add(this.props.doorOverlay);
     this.add(this.props.cryOverlay);
     this.add(this.props.eatOverlay);
+    this.add(this.props.happyOverlay);
 
     this.cry(false);
     this.eat(false);
     this.flex(false);
+    this.happy(false);
   }
 
   cry(crying: boolean) {
@@ -176,6 +185,14 @@ export class MRT extends Phaser.GameObjects.Container {
       this.props.stopFlex();
     } else {
       this.props.startFlex();
+    }
+  }
+
+  happy(x: boolean) {
+    if (!x) {
+      this.props.happyOverlay.alpha = 0;
+    } else {
+      this.props.happyOverlay.alpha = 1;
     }
   }
 }

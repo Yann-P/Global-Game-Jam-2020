@@ -46,9 +46,8 @@ export class MainScene extends Phaser.Scene {
 
     const gameOver = () => {
       const win = step === this.initData.keys.length;
-      if (!win) {
-        this.feedback(false);
-      }
+      this.feedback(win);
+
       setTimeout(() => {
         this.scene.start("starter", { lastLevelResult: win });
       }, 200);
@@ -91,8 +90,9 @@ export class MainScene extends Phaser.Scene {
     const nextItem = () => {
       step++;
       if (step === this.initData.keys.length) {
+        this.timeRemaining = 2;
         levelIsOver = true;
-        mrt.flex(true);
+        //        mrt.flex(true);
         modele.destroy();
         return;
       }
@@ -120,6 +120,7 @@ export class MainScene extends Phaser.Scene {
           const volume = key === "Pomme" ? 0.7 : 0.4;
           this.sound.play(key, { volume });
           mrt.eat(true);
+          mrt.happy(false);
         });
 
         o.on("drag", (pointer, el: Objet, x, y) => {
@@ -143,9 +144,9 @@ export class MainScene extends Phaser.Scene {
             o.x = o.props.initialX;
             o.y = o.props.initialY;
           } else {
-            this.feedback(win);
             if (win) {
               this.sound.play("GoodItem");
+              mrt.happy(true);
               o.destroy();
               nextItem();
             } else {
